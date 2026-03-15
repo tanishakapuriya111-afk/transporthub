@@ -133,6 +133,12 @@ $gray: rgba(255, 255, 255, 0.7);
       height: 32px;
       stroke: $orange;
     }
+
+    img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+    }
   }
 
   &__title {

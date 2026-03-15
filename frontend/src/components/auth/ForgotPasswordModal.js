@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { resetPassword } from "../../services/authService";
-import { MdEmail, MdCheckCircle, MdSchedule, MdRefresh } from "react-icons/md";
+import { MdEmail, MdCheckCircle, MdLockReset } from "react-icons/md";
 import "../../styles/AuthModals.scss";
 
 const ForgotPasswordModal = ({ onClose, onBackToLogin }) => {
@@ -11,51 +11,46 @@ const ForgotPasswordModal = ({ onClose, onBackToLogin }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!email.trim()) {
       setError("Please enter your email address");
       return;
     }
-
     setLoading(true);
     setError("");
-
     const result = await resetPassword(email);
-
     if (result.success) {
       setIsSubmitted(true);
     } else {
-      setError(result.error);
+      setError(result.error || "Something went wrong. Please try again.");
     }
-
     setLoading(false);
-  };
-
-  const handleBackToLogin = () => {
-    onBackToLogin();
   };
 
   return (
     <div className="modal-overlay">
       <div className="modal">
-        <span className="close-btn" onClick={onClose}>
-          ×
-        </span>
+        <span className="close-btn" onClick={onClose}>×</span>
 
         {!isSubmitted ? (
           <>
-            <h2 className="modal-title">Reset Password</h2>
-            <p className="modal-subtitle">Enter your email address and we'll send you a link to reset your password.</p>
+            {/* Icon */}
+            <div className="fp-icon-wrap">
+              <MdLockReset className="fp-icon" />
+            </div>
+
+            <h2 className="modal-title">Forgot Password?</h2>
+            <p className="fp-subtitle">
+              Enter your email and we'll send you a reset link.
+            </p>
 
             <form onSubmit={handleSubmit}>
-              {/* Email Field */}
-              <div className="form-group">
+              <div className="form-group" style={{ position: "relative" }}>
                 <input
                   type="email"
                   id="resetEmail"
                   name="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => { setEmail(e.target.value); setError(""); }}
                   placeholder=" "
                   required
                 />
@@ -63,50 +58,53 @@ const ForgotPasswordModal = ({ onClose, onBackToLogin }) => {
                 <i className="icon-email"><MdEmail /></i>
               </div>
 
-              {/* Error Message */}
               {error && <div className="error-message">{error}</div>}
 
-              {/* Submit Button */}
-              <button type="submit" className="reset-password-btn" disabled={loading}>
-                {loading ? "Sending..." : "Send Reset Link"}
+              <button type="submit" className="login-submit-btn" disabled={loading}>
+                {loading ? (
+                  <><span className="btn-spinner" /> Sending...</>
+                ) : (
+                  "Send Reset Link"
+                )}
               </button>
-
-              {/* Back to Login */}
-              <p className="back-to-login">
-                Remember your password?{" "}
-                <button type="button" className="link-button" onClick={handleBackToLogin}>
-                  Back to Login
-                </button>
-              </p>
             </form>
+
+            <p className="need-account">
+              Remember your password?{" "}
+              <button type="button" className="link-button" onClick={onBackToLogin}>
+                Back to Login
+              </button>
+            </p>
           </>
         ) : (
           <>
-            <h2 className="modal-title">Check Your Email</h2>
-            <div className="success-message">
-              <div className="success-icon"><MdCheckCircle /></div>
-              <div className="success-text">
-                <strong>Check your email!</strong>
-                <p className="success-subtext">
-                  We've sent a password reset link to <strong>{email}</strong>
-                </p>
-                <div className="email-instructions">
-                  <p><MdEmail style={{verticalAlign: 'middle', marginRight: '8px'}} /> Check your inbox and spam folder</p>
-                  <p><MdSchedule style={{verticalAlign: 'middle', marginRight: '8px'}} /> The link expires in 1 hour</p>
-                  <p><MdRefresh style={{verticalAlign: 'middle', marginRight: '8px'}} /> Click the link to reset your password</p>
-                </div>
-              </div>
+            {/* Success Icon */}
+            <div className="fp-success-icon-wrap">
+              <MdCheckCircle className="fp-success-icon" />
             </div>
 
-            {/* Action Buttons */}
-            <div className="success-actions">
-              <button className="resend-btn" onClick={handleSubmit}>
-                Resend Email
+            <h2 className="modal-title">Check Your Email</h2>
+            <p className="fp-subtitle">
+              We sent a reset link to
+            </p>
+            <p className="fp-email-highlight">{email}</p>
+
+            <p className="fp-hint">Check your inbox and spam folder. The link expires in 1 hour.</p>
+
+            <button className="login-submit-btn" onClick={onBackToLogin}>
+              Back to Login
+            </button>
+
+            <p className="need-account">
+              Didn't receive it?{" "}
+              <button
+                type="button"
+                className="link-button"
+                onClick={() => { setIsSubmitted(false); setEmail(""); }}
+              >
+                Try again
               </button>
-              <button className="back-btn" onClick={handleBackToLogin}>
-                Back to Login
-              </button>
-            </div>
+            </p>
           </>
         )}
       </div>

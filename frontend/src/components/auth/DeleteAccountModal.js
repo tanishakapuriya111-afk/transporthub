@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { deleteUserAccount } from "../../services/authService";
+import { useAuth } from "../../context/AuthContext";
 import { MdWarning } from "react-icons/md";
 
 const DeleteAccountModal = ({ isOpen, onClose }) => {
+  const { currentUser, logout } = useAuth();
+  const isGoogleOnly = currentUser && !currentUser.hasPassword;
   const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState("");
   const [password, setPassword] = useState("");
   const [confirmText, setConfirmText] = useState("");
 
   const handleDeleteAccount = async () => {
-    // Validate password and confirmation text
-    if (!password) {
+    // Password required only for users who have one
+    if (!isGoogleOnly && !password) {
       setError("Please enter your password to confirm deletion");
       return;
     }
@@ -27,6 +30,7 @@ const DeleteAccountModal = ({ isOpen, onClose }) => {
       const result = await deleteUserAccount();
 
       if (result.success) {
+        logout();
         onClose();
       } else {
         setError(result.error);
@@ -72,17 +76,18 @@ const DeleteAccountModal = ({ isOpen, onClose }) => {
 
           <p className="warning-message">Will be permanently deleted from our system.</p>
 
-          <div className="form-group" style={{ marginTop: "20px" }}>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter your password to confirm"
-              required
-            />
-          </div>
+          {!isGoogleOnly && (
+            <div className="form-group" style={{ marginTop: "20px" }}>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password to confirm"
+              />
+            </div>
+          )}
 
-          <div className="form-group" style={{ marginTop: "10px" }}>
+          <div className="form-group" style={{ marginTop: isGoogleOnly ? "20px" : "10px" }}>
             <input
               type="text"
               value={confirmText}
@@ -102,7 +107,7 @@ const DeleteAccountModal = ({ isOpen, onClose }) => {
               type="button"
               className="btn btn-danger"
               onClick={handleDeleteAccount}
-              disabled={isDeleting || !password || confirmText !== "DELETE"}
+              disabled={isDeleting || (!isGoogleOnly && !password) || confirmText !== "DELETE"}
             >
               {isDeleting ? "Deleting..." : "Delete Account"}
             </button>

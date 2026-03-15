@@ -13,6 +13,7 @@ const userDTO = (u) => ({
   phone: u.phone,
   city: u.city,
   createdAt: u.createdAt,
+  hasPassword: !!u.passwordHash,
 });
 
 router.get('/me', auth, async (req, res) => {
@@ -28,6 +29,23 @@ router.put('/me', auth, async (req, res) => {
   if (displayName !== undefined) user.displayName = displayName;
   await user.save();
   return res.json({ user: userDTO(user) });
+});
+
+router.patch('/me/password', auth, async (req, res) => {
+  try {
+    const { password } = req.body;
+    if (!password || password.length < 6) {
+      return res.status(400).json({ message: 'Password must be at least 6 characters' });
+    }
+    const bcrypt = require('bcryptjs');
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    user.passwordHash = await bcrypt.hash(password, 10);
+    await user.save();
+    return res.json({ success: true, hasPassword: true });
+  } catch (e) {
+    return res.status(500).json({ message: 'Server error' });
+  }
 });
 
 router.delete('/me', auth, async (req, res) => {

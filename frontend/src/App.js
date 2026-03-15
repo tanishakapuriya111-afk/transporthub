@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { LoginModal, RegistrationModal, ForgotPasswordModal } from "./components/auth";
 import Navbar from "./components/layout/Navbar";
 import HomePage from "./components/pages/HomePage";
+import GoogleAuthCallbackPage from "./pages/GoogleAuthCallbackPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 import AboutPage from "./components/pages/AboutPage";
 import ServicesPage from "./components/pages/ServicesPage";
 import ServiceDetailPage from "./components/pages/ServiceDetailPage";
@@ -62,6 +64,10 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            {/* Google OAuth callback - no Navbar needed */}
+            <Route path="/auth/callback" element={<GoogleAuthCallbackPage />} />
+            {/* Password reset - no Navbar needed */}
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
           </Routes>
 
           {/* Modals */}

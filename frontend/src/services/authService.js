@@ -7,7 +7,7 @@
 // PUT    /api/users/me             -> { user }
 // DELETE /api/users/me             -> { success }
 
-const API_BASE = "http://localhost:5000";
+const API_BASE = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
 
 const jsonHeaders = () => ({
   "Content-Type": "application/json",
@@ -106,6 +106,36 @@ export const updateUserProfile = async (uid, profileData) => {
     return { success: true, user: data.user };
   } catch (error) {
     return { success: false, error: error.message };
+  }
+};
+
+export const resetPasswordWithToken = async (token, password) => {
+  try {
+    const res = await fetch(`${API_BASE}/api/auth/reset-password`, {
+      method: 'POST',
+      headers: { ...jsonHeaders() },
+      body: JSON.stringify({ token, password }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) return { success: false, error: data.message || 'Reset failed' };
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: 'Network error. Please try again.' };
+  }
+};
+
+export const setUserPassword = async (password) => {
+  try {
+    const res = await fetch(`${API_BASE}/api/users/me/password`, {
+      method: 'PATCH',
+      headers: { ...jsonHeaders(), ...authHeaders() },
+      body: JSON.stringify({ password }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) return { success: false, error: data.message || 'Failed to set password' };
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: 'Network error. Please try again.' };
   }
 };
 

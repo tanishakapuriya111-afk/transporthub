@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { loginUser, registerUser, logoutUser, updateUserProfile, getCurrentUser } from "../services/authService";
+import { loginUser, registerUser, logoutUser, updateUserProfile, getCurrentUser, setUserPassword } from "../services/authService";
 import { appConfig } from "../config/appConfig";
 
 const AuthContext = createContext();
@@ -60,6 +60,12 @@ export const AuthProvider = ({ children }) => {
     return result;
   };
 
+  const loginWithGoogleCallback = ({ token, user }) => {
+    localStorage.setItem('authToken', token);
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    setCurrentUser(user);
+  };
+
   const logout = async () => {
     await logoutUser();
     // Clear all localStorage data
@@ -73,6 +79,23 @@ export const AuthProvider = ({ children }) => {
     
     // Redirect to home page
     window.location.href = '/';
+  };
+
+  const setPassword = async (password) => {
+    try {
+      const result = await setUserPassword(password);
+      if (result.success) {
+        // Mark hasPassword true in local state
+        setCurrentUser((prev) => {
+          const updated = { ...prev, hasPassword: true };
+          localStorage.setItem('currentUser', JSON.stringify(updated));
+          return updated;
+        });
+      }
+      return result;
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
   };
 
   const updateProfile = async (profileData) => {
@@ -109,6 +132,8 @@ export const AuthProvider = ({ children }) => {
     register,
     logout,
     updateProfile,
+    loginWithGoogleCallback,
+    setPassword,
   };
 
   return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;

@@ -1,11 +1,13 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
 const express = require('express');
 const cors = require('cors');
-const morgan = require('morgan');
-const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const connectDB = require('./config/db');
 const { seedAdmin } = require('./config/seed');
-
-dotenv.config();
+const passportConfig = require('./config/passport');
 
 const authRoutes = require('./routes/auth');
 const usersRoutes = require('./routes/users');
@@ -17,9 +19,31 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 
-app.use(cors({ origin: process.env.FRONTEND_ORIGIN || '*'}));
+app.use(cors({
+  origin: process.env.FRONTEND_ORIGIN || 'http://localhost:3000',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 app.use(express.json());
-app.use(morgan('dev'));
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+// Session needed for Google OAuth flow
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'transporthub-session-secret',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: false,
+    httpOnly: true,
+    sameSite: 'lax',
+    maxAge: 1000 * 60 * 60, // 1 hour
+  },
+}));
+
+app.use(passportConfig.initialize());
+app.use(passportConfig.session());
 
 app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
