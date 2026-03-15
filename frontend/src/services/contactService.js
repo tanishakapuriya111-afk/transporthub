@@ -44,6 +44,21 @@ export const getAllContacts = async () => {
   }
 };
 
+export const replyToContact = async (contactId, replyMessage) => {
+  try {
+    const res = await fetch(`${API_BASE}/api/contacts/${contactId}/reply`, {
+      method: 'POST',
+      headers: { ...jsonHeaders(), ...authHeaders() },
+      body: JSON.stringify({ replyMessage }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) return { success: false, message: data.message || 'Failed to send reply' };
+    return { success: true, contact: data.contact };
+  } catch (error) {
+    return { success: false, message: 'Network error. Please try again.' };
+  }
+};
+
 export const markContactAsRead = async (contactId) => {
   try {
     const res = await fetch(`${API_BASE}/api/contacts/${contactId}/read`, {

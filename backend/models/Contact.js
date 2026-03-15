@@ -8,6 +8,8 @@ const contactSchema = new mongoose.Schema({
   message: { type: String, required: true },
   status: { type: String, enum: ['new', 'read', 'replied'], default: 'new' },
   read: { type: Boolean, default: false },
+  replyMessage: { type: String },
+  repliedAt: { type: Date },
   createdAt: { type: Date, default: Date.now }
 });
 

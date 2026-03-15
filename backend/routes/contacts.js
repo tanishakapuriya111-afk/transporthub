@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { auth, isAdmin } = require('../middleware/auth');
 const Contact = require('../models/Contact');
+const { sendReplyEmail } = require('../config/email');
 
 const contactDTO = (c) => ({
   id: c._id.toString(),
@@ -13,6 +14,8 @@ const contactDTO = (c) => ({
   createdAt: c.createdAt,
   status: c.status,
   read: c.read,
+  replyMessage: c.replyMessage,
+  repliedAt: c.repliedAt,
 });
 
 // Public contact submit
@@ -51,6 +54,32 @@ router.patch('/:id/read', auth, isAdmin, async (req, res) => {
   } catch (e) {
     console.error('Mark read error:', e);
     return res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Admin reply to contact via email
+router.post('/:id/reply', auth, isAdmin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { replyMessage } = req.body;
+    if (!replyMessage || !replyMessage.trim()) {
+      return res.status(400).json({ message: 'Reply message is required' });
+    }
+    const contact = await Contact.findById(id);
+    if (!contact) return res.status(404).json({ message: 'Contact not found' });
+
+    await sendReplyEmail(contact.email, contact.name, contact.subject, replyMessage.trim());
+
+    contact.status = 'replied';
+    contact.read = true;
+    contact.replyMessage = replyMessage.trim();
+    contact.repliedAt = new Date();
+    await contact.save();
+
+    return res.json({ success: true, contact: contactDTO(contact) });
+  } catch (e) {
+    console.error('Reply contact error:', e);
+    return res.status(500).json({ message: 'Failed to send reply email' });
   }
 });
 

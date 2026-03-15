@@ -377,13 +377,110 @@ $gray: rgba(255, 255, 255, 0.7);
       }
 
       .reply-btn {
+        background: transparent;
+        color: $orange;
+        border: 2px solid $orange;
+
+        &:hover {
+          background: rgba(255, 107, 53, 0.12);
+          transform: translateY(-2px);
+        }
+      }
+    }
+
+    // ── Inline reply box ──
+    .reply-box {
+      margin-top: 16px;
+      padding: 20px;
+      background: rgba(255, 107, 53, 0.05);
+      border: 1px solid rgba(255, 107, 53, 0.25);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .reply-prev {
+        padding: 12px;
+        background: rgba(255, 255, 255, 0.04);
+        border-left: 3px solid rgba(76, 175, 80, 0.7);
+        border-radius: 0 8px 8px 0;
+
+        span {
+          font-size: 0.78rem;
+          color: #4caf50;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          display: block;
+          margin-bottom: 6px;
+        }
+
+        p {
+          color: $gray;
+          font-size: 0.9rem;
+          line-height: 1.6;
+          margin: 0;
+          white-space: pre-wrap;
+        }
+      }
+
+      .reply-textarea {
+        width: 100%;
+        padding: 14px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 8px;
+        color: $white;
+        font-family: 'Poppins', sans-serif;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        resize: vertical;
+        box-sizing: border-box;
+        transition: border-color 0.3s ease;
+
+        &::placeholder { color: rgba(255, 255, 255, 0.35); }
+
+        &:focus {
+          outline: none;
+          border-color: $orange;
+          background: rgba(255, 255, 255, 0.07);
+        }
+      }
+
+      .send-reply-btn {
+        align-self: flex-end;
+        padding: 10px 24px;
         background: linear-gradient(135deg, $orange 0%, $orange-hover 100%);
         color: $white;
         border: none;
+        border-radius: 8px;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        transition: all 0.3s ease;
 
-        &:hover {
+        &:hover:not(:disabled) {
           transform: translateY(-2px);
           box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        &:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
+        }
+
+        .btn-spinner {
+          display: inline-block;
+          width: 14px;
+          height: 14px;
+          border: 2px solid rgba(255,255,255,0.3);
+          border-top-color: $white;
+          border-radius: 50%;
+          animation: spin 0.6s linear infinite;
+          margin-right: 8px;
         }
       }
     }

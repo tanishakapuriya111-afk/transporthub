@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { getAllContacts, markContactAsRead } from "../../services/contactService";
+import { getAllContacts, markContactAsRead, replyToContact } from "../../services/contactService";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
-import { MdBlock, MdRefresh, MdMailOutline } from "react-icons/md";
+import { MdBlock, MdRefresh, MdMailOutline, MdSend, MdExpandMore, MdExpandLess } from "react-icons/md";
 import { appConfig } from "../../config/appConfig";
 import './AdminPage.scss';
 
@@ -14,7 +14,10 @@ const AdminPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState("all"); // all, new, read, replied
-  const [markingAsRead, setMarkingAsRead] = useState(null); // Track which contact is being marked
+  const [markingAsRead, setMarkingAsRead] = useState(null);
+  const [replyOpen, setReplyOpen] = useState({}); // { contactId: bool }
+  const [replyText, setReplyText] = useState({}); // { contactId: string }
+  const [replying, setReplying] = useState(null); // contactId currently sending
 
   // Check if user is admin
   const isAdmin = currentUser?.email === appConfig.adminEmails;
@@ -65,6 +68,26 @@ const AdminPage = () => {
       toast.error('Failed to mark as read');
     } finally {
       setMarkingAsRead(null);
+    }
+  };
+
+  const handleReply = async (contact) => {
+    const msg = (replyText[contact.id] || '').trim();
+    if (!msg) { toast.warn('Please write a reply message.'); return; }
+    setReplying(contact.id);
+    const result = await replyToContact(contact.id, msg);
+    setReplying(null);
+    if (result.success) {
+      toast.success(`Reply sent to ${contact.email}!`);
+      setContacts(prev => prev.map(c =>
+        c.id === contact.id
+          ? { ...c, status: 'replied', read: true, replyMessage: msg, repliedAt: new Date().toISOString() }
+          : c
+      ));
+      setReplyOpen(prev => ({ ...prev, [contact.id]: false }));
+      setReplyText(prev => ({ ...prev, [contact.id]: '' }));
+    } else {
+      toast.error(result.message || 'Failed to send reply.');
     }
   };
 
@@ -215,25 +238,51 @@ const AdminPage = () => {
 
                   <div className="contact-actions">
                     {!contact.read && (
-                      <button 
-                        onClick={() => handleMarkAsRead(contact.id)} 
+                      <button
+                        onClick={() => handleMarkAsRead(contact.id)}
                         className="mark-read-btn"
                         disabled={markingAsRead === contact.id}
                       >
-                        {markingAsRead === contact.id ? (
-                          <>
-                            <span className="btn-spinner"></span>
-                            Marking...
-                          </>
-                        ) : (
-                          'Mark as Read'
-                        )}
+                        {markingAsRead === contact.id ? (<><span className="btn-spinner" /> Marking...</>) : 'Mark as Read'}
                       </button>
                     )}
-                    <a href={`mailto:${contact.email}?subject=Re: ${contact.subject}`} className="reply-btn">
-                      Reply via Email
-                    </a>
+                    <button
+                      className="reply-btn"
+                      onClick={() => setReplyOpen(prev => ({ ...prev, [contact.id]: !prev[contact.id] }))}
+                    >
+                      {replyOpen[contact.id] ? <MdExpandLess style={{verticalAlign:'middle',marginRight:4}} /> : <MdSend style={{verticalAlign:'middle',marginRight:4}} />}
+                      {replyOpen[contact.id] ? 'Cancel' : (contact.status === 'replied' ? 'Reply Again' : 'Reply')}
+                    </button>
                   </div>
+
+                  {/* Inline reply box */}
+                  {replyOpen[contact.id] && (
+                    <div className="reply-box">
+                      {contact.replyMessage && (
+                        <div className="reply-prev">
+                          <span>Previous reply:</span>
+                          <p>{contact.replyMessage}</p>
+                        </div>
+                      )}
+                      <textarea
+                        className="reply-textarea"
+                        rows={4}
+                        placeholder={`Write your reply to ${contact.name}...`}
+                        value={replyText[contact.id] || ''}
+                        onChange={e => setReplyText(prev => ({ ...prev, [contact.id]: e.target.value }))}
+                      />
+                      <button
+                        className="send-reply-btn"
+                        onClick={() => handleReply(contact)}
+                        disabled={replying === contact.id}
+                      >
+                        {replying === contact.id
+                          ? (<><span className="btn-spinner" /> Sending...</>)
+                          : (<><MdSend style={{verticalAlign:'middle',marginRight:6}} />Send Reply</>)
+                        }
+                      </button>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

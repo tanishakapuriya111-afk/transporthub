@@ -173,6 +173,7 @@ router.get(
         displayName: user.displayName,
         role: user.role,
         createdAt: user.createdAt,
+        hasPassword: !!user.passwordHash,
       };
 
       const returnUrl = req.cookies?.oauth_state || null;
