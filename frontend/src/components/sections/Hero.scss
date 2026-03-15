@@ -1,0 +1,319 @@
+// Colors
+$black: #0a0a0a;
+$dark-black: #050505;
+$orange: #ff6b35;
+$orange-hover: #ff8555;
+$white: #ffffff;
+$gray: rgba(255, 255, 255, 0.7);
+
+.hero {
+  min-height: 100vh;
+  background: $black;
+  padding: 120px 20px 80px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  &__gradient {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at 30% 50%,
+      rgba(255, 107, 53, 0.15) 0%,
+      rgba(10, 10, 10, 0.8) 50%,
+      rgba(10, 10, 10, 1) 100%
+    );
+  }
+
+  &__content {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  &__text {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  &__title {
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 24px;
+
+    &-main {
+      display: block;
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: $white;
+      margin-bottom: 8px;
+
+      @media (max-width: 768px) {
+        font-size: 1.8rem;
+      }
+    }
+
+    &-gradient {
+      display: block;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: $orange;
+
+      @media (max-width: 768px) {
+        font-size: 2.2rem;
+      }
+    }
+  }
+
+  &__description {
+    font-size: 1.1rem;
+    color: $gray;
+    max-width: 700px;
+    margin: 0 auto 40px;
+    line-height: 1.8;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  &__stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+    max-width: 900px;
+    margin: 0 auto;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+// Button Styles
+.btn {
+  font-family: 'Poppins', sans-serif;
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+  }
+
+  &--primary {
+    background: $orange;
+    color: $white;
+
+    &:hover {
+      background: $orange-hover;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(255, 107, 53, 0.4);
+
+      .btn__icon {
+        transform: translateX(4px);
+      }
+    }
+  }
+
+  &--secondary {
+    background: transparent;
+    color: $white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+
+    &:hover {
+      border-color: $white;
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+// Stat Card Styles
+.stat-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 107, 53, 0.5);
+    transform: translateY(-4px);
+  }
+
+  &__icon {
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    background: rgba(255, 107, 53, 0.15);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      width: 32px;
+      height: 32px;
+      stroke: $orange;
+    }
+  }
+
+  &__content {
+    flex: 1;
+  }
+
+  &__number {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: $white;
+    margin: 0 0 4px 0;
+  }
+
+  &__label {
+    font-size: 0.9rem;
+    color: $gray;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+  }
+}
+
+// Animated Routes
+.animated-routes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.6;
+
+  .route-line {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    &.route-1 {
+      top: 20%;
+      opacity: 0.8;
+    }
+
+    &.route-2 {
+      bottom: 20%;
+      opacity: 0.6;
+    }
+  }
+}
+
+// Floating Transportation Icons
+.floating-icons {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  .float-icon {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    opacity: 0.15;
+    
+    svg {
+      width: 100%;
+      height: 100%;
+      stroke: $orange;
+      fill: none;
+    }
+
+    &.truck {
+      top: 15%;
+      left: 10%;
+      
+      @media (max-width: 768px) {
+        width: 40px;
+        height: 40px;
+        top: 10%;
+        left: 5%;
+      }
+    }
+
+    &.plane {
+      top: 25%;
+      right: 15%;
+      width: 70px;
+      height: 70px;
+      opacity: 0.2;
+      
+      svg {
+        fill: $orange;
+      }
+
+      @media (max-width: 768px) {
+        width: 45px;
+        height: 45px;
+        right: 5%;
+      }
+    }
+
+    &.ship {
+      bottom: 20%;
+      left: 15%;
+      
+      @media (max-width: 768px) {
+        width: 40px;
+        height: 40px;
+        bottom: 15%;
+        left: 10%;
+      }
+    }
+  }
+}
+
+// Animated Particles
+.particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: $orange;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+  }
+}

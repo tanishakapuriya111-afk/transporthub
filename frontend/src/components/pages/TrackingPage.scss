@@ -1,0 +1,252 @@
+$black: #0a0a0a;
+$orange: #ff6b35;
+$white: #ffffff;
+$gray: rgba(255, 255, 255, 0.7);
+
+.tracking-page {
+  background: $black;
+  min-height: 100vh;
+  padding-top: 80px;
+}
+
+.tracking-hero {
+  padding: 80px 20px 40px;
+  text-align: center;
+
+  &__container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  &__title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: $white;
+    margin-bottom: 16px;
+
+    @media (max-width: 768px) {
+      font-size: 2rem;
+    }
+  }
+
+  &__subtitle {
+    font-size: 1.1rem;
+    color: $gray;
+  }
+}
+
+.tracking-form-section {
+  padding: 40px 20px;
+
+  &__container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
+.tracking-form-wrapper {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 32px;
+}
+
+.tracking-form {
+  .tracking-input {
+    width: 100%;
+    padding: 14px 16px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    color: $white;
+    font-size: 1rem;
+    font-family: inherit;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+      opacity: 1;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    &:focus::placeholder {
+      opacity: 0.5;
+    }
+
+    &:not(:placeholder-shown)::placeholder {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $orange;
+      background: rgba(255, 107, 53, 0.05);
+      box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15);
+    }
+
+    // Fix autofill background
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 30px $black inset !important;
+      -webkit-text-fill-color: $white !important;
+      caret-color: $white;
+      border: 2px solid rgba(255, 255, 255, 0.3) !important;
+      transition: background-color 5000s ease-in-out 0s;
+    }
+  }
+
+  .tracking-submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: $orange;
+    color: $white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: #ff8555;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(255, 107, 53, 0.3);
+    }
+  }
+}
+
+.tracking-result {
+  padding: 40px 20px 100px;
+
+  &__container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+}
+
+.result-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 40px;
+
+  @media (max-width: 768px) {
+    padding: 24px;
+  }
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+
+  h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: $white;
+    margin: 0;
+  }
+}
+
+.status-badge {
+  background: rgba(255, 107, 53, 0.2);
+  color: $orange;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.result-info {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 32px;
+
+  p {
+    color: $gray;
+    margin: 8px 0;
+    font-size: 1rem;
+
+    strong {
+      color: $white;
+    }
+  }
+}
+
+.timeline {
+  position: relative;
+  padding-left: 40px;
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 32px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &.completed {
+    .timeline-icon {
+      background: $orange;
+      color: $white;
+      border-color: $orange;
+    }
+
+    .timeline-content h4 {
+      color: $white;
+    }
+  }
+}
+
+.timeline-icon {
+  position: absolute;
+  left: -32px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $gray;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.timeline-content {
+  h4 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: $gray;
+    margin: 0 0 4px 0;
+  }
+
+  p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    margin: 0;
+  }
+}

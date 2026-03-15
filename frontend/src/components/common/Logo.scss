@@ -1,0 +1,184 @@
+// Colors
+$orange: #ff6b35;
+$orange-hover: #ff8555;
+$white: #ffffff;
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+
+  &:hover {
+    .logo-icon {
+      transform: translateX(4px);
+      
+      .speed-lines {
+        opacity: 0.9;
+        animation: speedLines 0.6s ease-out;
+      }
+      
+      .waves {
+        animation: waveMotion 1s ease-in-out infinite;
+      }
+    }
+    
+    .logo-swift {
+      color: $orange-hover;
+    }
+  }
+
+  // Logo Icon
+  .logo-icon {
+    color: $orange;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 2px 8px rgba(255, 107, 53, 0.3));
+    
+    .ship-body {
+      transition: all 0.3s ease;
+    }
+    
+    .ship-deck {
+      transition: all 0.3s ease;
+    }
+    
+    .speed-lines {
+      transition: all 0.3s ease;
+    }
+    
+    .waves {
+      transition: all 0.3s ease;
+    }
+  }
+
+  // Logo Text
+  .logo-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    display: flex;
+    gap: 0;
+    
+    .logo-swift {
+      color: $white;
+      transition: color 0.3s ease;
+    }
+    
+    .logo-ship {
+      color: $orange;
+      transition: color 0.3s ease;
+    }
+  }
+
+  // Size Variants
+  &.logo-small {
+    gap: 0.5rem;
+    
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+    }
+    
+    .logo-text {
+      font-size: 1rem;
+    }
+  }
+
+  &.logo-medium {
+    gap: 0.75rem;
+    
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+    }
+    
+    .logo-text {
+      font-size: 1.25rem;
+    }
+  }
+
+  &.logo-large {
+    gap: 1rem;
+    
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+    }
+    
+    .logo-text {
+      font-size: 1.75rem;
+    }
+  }
+
+  // Variant - Stacked (for mobile/vertical layouts)
+  &.logo-stacked {
+    flex-direction: column;
+    gap: 0.5rem;
+    
+    .logo-text {
+      flex-direction: column;
+      text-align: center;
+      gap: 0;
+    }
+  }
+
+  // Variant - Light (for dark backgrounds)
+  &.logo-light {
+    .logo-icon {
+      color: $white;
+    }
+    
+    .logo-ship {
+      color: $white;
+    }
+  }
+
+  // Variant - Compact (icon only)
+  &.logo-compact {
+    .logo-text {
+      display: none;
+    }
+  }
+}
+
+// Animations
+@keyframes speedLines {
+  0% {
+    transform: translateX(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateX(-8px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-15px);
+    opacity: 0;
+  }
+}
+
+@keyframes waveMotion {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .logo-container {
+    &.logo-medium {
+      .logo-icon {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .logo-text {
+        font-size: 1.1rem;
+      }
+    }
+  }
+}

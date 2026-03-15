@@ -1,0 +1,25 @@
+{
+  "short_name": "Transportation",
+  "name": "Transportation Services",
+  "icons": [
+    {
+      "src": "favicon.svg?v=3",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "logo192.svg?v=3",
+      "type": "image/svg+xml",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo512.svg?v=3",
+      "type": "image/svg+xml",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

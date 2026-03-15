@@ -1,0 +1,61 @@
+/* Global Theme Variables */
+:root {
+  /* Default Theme - Orange */
+  --primary-color: #ff6b35;
+  --primary-hover: #ff8555;
+  --primary-light: #ffa575;
+  
+  /* Common colors */
+  --black: #0a0a0a;
+  --white: #ffffff;
+  --gray: rgba(255, 255, 255, 0.7);
+}
+
+/* Theme 1: Orange Energy (Default) */
+[data-theme="orange"] {
+  --primary-color: #ff6b35;
+  --primary-hover: #ff8555;
+  --primary-light: #ffa575;
+}
+
+/* Theme 2: Purple Luxury */
+[data-theme="purple"] {
+  --primary-color: #9333ea;
+  --primary-hover: #a855f7;
+  --primary-light: #c084fc;
+}
+
+/* Theme 3: Blue Professional */
+[data-theme="blue"] {
+  --primary-color: #2563eb;
+  --primary-hover: #3b82f6;
+  --primary-light: #60a5fa;
+}
+
+/* Theme 4: Green Eco */
+[data-theme="green"] {
+  --primary-color: #16a34a;
+  --primary-hover: #22c55e;
+  --primary-light: #4ade80;
+}
+
+/* Theme 5: Red Energy */
+[data-theme="red"] {
+  --primary-color: #dc2626;
+  --primary-hover: #ef4444;
+  --primary-light: #f87171;
+}
+
+/* Theme 6: Cyan Modern */
+[data-theme="cyan"] {
+  --primary-color: #0891b2;
+  --primary-hover: #06b6d4;
+  --primary-light: #22d3ee;
+}
+
+/* Theme 7: Pink Creative */
+[data-theme="pink"] {
+  --primary-color: #db2777;
+  --primary-hover: #ec4899;
+  --primary-light: #f472b6;
+}

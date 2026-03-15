@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <linearGradient id="shipGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="4" fill="url(#shipGradient)"/>
+  
+  <!-- Ship hull -->
+  <path d="M6 20 L10 16 L18 16 L22 20 L24 20 L24 22 L22 22 L18 18 L10 18 L6 22 L4 22 L4 20 Z" fill="white"/>
+  
+  <!-- Red stripe on hull -->
+  <path d="M8 19 L20 19 L20 20 L8 20 Z" fill="#dc2626"/>
+  
+  <!-- Ship decks -->
+  <path d="M10 15 L18 15 L18 16 L10 16 Z" fill="white"/>
+  <path d="M11 14 L17 14 L17 15 L11 15 Z" fill="white"/>
+  
+  <!-- Red smokestacks with white tops -->
+  <rect x="12" y="12" width="2" height="3" fill="#dc2626"/>
+  <rect x="16" y="12" width="2" height="3" fill="#dc2626"/>
+  <rect x="12" y="11" width="2" height="1" fill="white"/>
+  <rect x="16" y="11" width="2" height="1" fill="white"/>
+  
+  <!-- Blue T letter -->
+  <path d="M26 8 L30 8 L30 9 L29 9 L29 12 L28 12 L28 9 L26 9 Z" fill="#2563eb"/>
+</svg>

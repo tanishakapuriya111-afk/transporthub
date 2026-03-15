@@ -1,0 +1,175 @@
+// Colors - Orange-Black Theme
+$black: #0a0a0a;
+$orange: #ff6b35;
+$orange-hover: #ff8555;
+$white: #ffffff;
+$gray: rgba(255, 255, 255, 0.7);
+
+.admin-login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $black;
+  padding: 20px;
+
+  &__container {
+    width: 100%;
+    max-width: 480px;
+  }
+
+  &__card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    text-align: center;
+  }
+
+  &__icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255, 107, 53, 0.15);
+    border: 2px solid rgba(255, 107, 53, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    
+    svg {
+      font-size: 24px;
+      color: $orange;
+    }
+  }
+
+  &__title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: $white;
+    margin-bottom: 8px;
+  }
+
+  &__subtitle {
+    color: $gray;
+    margin-bottom: 30px;
+    font-size: 0.95rem;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  &__error {
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #ff6b6b;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  &__form {
+    margin-bottom: 30px;
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px 16px;
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      color: $white;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s;
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+        opacity: 1;
+        transition: opacity 0.2s ease, visibility 0.2s ease;
+      }
+
+      &:focus::placeholder {
+        opacity: 0.5;
+      }
+
+      &:not(:placeholder-shown)::placeholder {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: $orange;
+        background: rgba(255, 107, 53, 0.05);
+        box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15);
+      }
+
+      // Fix autofill background
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus,
+      &:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px $black inset !important;
+        -webkit-text-fill-color: $white !important;
+        caret-color: $white;
+        border: 2px solid rgba(255, 255, 255, 0.3) !important;
+        transition: background-color 5000s ease-in-out 0s;
+      }
+    }
+
+    .form-submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: $orange;
+      color: $white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 16px rgba(255, 107, 53, 0.3);
+
+      &:hover:not(:disabled) {
+        background: $orange-hover;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(255, 107, 53, 0.4);
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  &__credentials {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+
+    .credentials-title {
+      font-size: 0.8rem;
+      color: $gray;
+      margin-bottom: 10px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .credentials-text {
+      font-family: 'Courier New', monospace;
+      font-weight: 600;
+      color: $white;
+      margin: 4px 0;
+      font-size: 0.9rem;
+    }
+  }
+}

@@ -1,0 +1,554 @@
+// Colors - Matching Hero Theme
+$black: #0a0a0a;
+$dark-black: #050505;
+$orange: #ff6b35;
+$orange-hover: #ff8555;
+$white: #ffffff;
+$gray: rgba(255, 255, 255, 0.7);
+
+/* Auth Modal Styles - Modern Hero Theme */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 10, 0.97);
+  backdrop-filter: blur(20px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  position: relative;
+  background: rgba(15, 15, 15, 0.98);
+  backdrop-filter: blur(20px);
+  padding: 3rem 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  width: 450px;
+  max-width: 90vw;
+  text-align: left;
+  color: $white;
+  animation: slideUp 0.4s ease-out;
+  border: 1px solid rgba(255, 107, 53, 0.2);
+
+  @media (max-width: 768px) {
+    padding: 2.5rem 2rem;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-title {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: $white;
+  letter-spacing: 0.5px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: $gray;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: $orange;
+    border-color: $orange;
+    transform: rotate(90deg);
+  }
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 1rem 1rem 1rem 3rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  background: transparent;
+  color: $white;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    opacity: 1;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+
+  // Hide placeholder when typing
+  &:focus::placeholder {
+    opacity: 0.5;
+  }
+
+  // Completely hide placeholder when input has value
+  &:not(:placeholder-shown)::placeholder {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  // Fix autofill background
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px rgba(10, 10, 10, 0.9) inset !important;
+    -webkit-text-fill-color: $white !important;
+    caret-color: $white;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  &:focus {
+    border-color: $orange;
+    background: rgba(255, 107, 53, 0.05);
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15);
+    transform: translateY(-2px);
+
+    ~ label {
+      transform: translateY(-2.5rem) scale(0.85);
+      color: $orange;
+      background: rgba(255, 107, 53, 0.15);
+      padding: 0 8px;
+      border-radius: 6px;
+    }
+
+    ~ .icon-email,
+    ~ .icon-lock,
+    ~ .icon-user {
+      color: $orange;
+    }
+  }
+
+  &:not(:placeholder-shown) ~ label {
+    transform: translateY(-2.5rem) scale(0.85);
+    color: $orange;
+    background: rgba(255, 107, 53, 0.15);
+    padding: 0 8px;
+    border-radius: 6px;
+  }
+}
+
+.form-group label {
+  position: absolute;
+  left: 3rem;
+  top: 1rem;
+  color: $gray;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+}
+
+.form-group .icon-email,
+.form-group .icon-lock,
+.form-group .icon-user {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: $gray;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.forgot-password {
+  display: block;
+  text-align: right;
+  color: $orange;
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+
+  &:hover {
+    color: $orange-hover;
+    text-decoration: underline;
+  }
+}
+
+.error-message {
+  background: rgba(139, 0, 0, 0.2);
+  color: #ff6b6b;
+  padding: 1rem 1rem 1rem 3rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  text-align: left;
+  position: relative;
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  line-height: 1.4;
+  font-family: 'Poppins', sans-serif;
+
+  &::before {
+    content: "⚠️";
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+  }
+}
+
+.login-submit-btn,
+.register-btn {
+  width: 100%;
+  padding: 1rem;
+  background: $orange;
+  color: $white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: none;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.5rem;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 4px 16px rgba(255, 107, 53, 0.3);
+
+  &:hover:not(:disabled) {
+    background: $orange-hover;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255, 107, 53, 0.4);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+  }
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: $orange;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: inherit;
+  padding: 0;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  transition: color 0.3s ease;
+  font-weight: 600;
+
+  &:hover {
+    color: $orange-hover;
+    text-decoration: underline;
+  }
+
+  &:focus {
+    outline: 2px solid $orange;
+    outline-offset: 2px;
+  }
+}
+
+.need-account,
+.already-registered {
+  text-align: center;
+  color: $gray;
+  font-size: 0.95rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+// Select element styling
+.form-select,
+select.form-input {
+  width: 100%;
+  padding: 1rem;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  color: $white;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 3rem;
+
+  &:focus {
+    outline: none;
+    border-color: $orange;
+    background-color: rgba(255, 107, 53, 0.05);
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15);
+  }
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  option {
+    background: $black;
+    color: $white;
+    padding: 0.5rem;
+  }
+}
+
+// Edit Profile Modal Specific Styles
+.profile-edit-modal {
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    .modal-title {
+      margin: 0;
+      font-size: 1.8rem;
+      text-align: left;
+    }
+
+    .modal-close-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: $gray;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover:not(:disabled) {
+        background: rgba(255, 255, 255, 0.1);
+        color: $orange;
+        border-color: $orange;
+        transform: rotate(90deg);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .profile-edit-form {
+    .form-group {
+      margin-bottom: 1.5rem;
+
+      .form-label {
+        display: block;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: $orange;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        position: static;
+        top: auto;
+        left: auto;
+        transform: none;
+        background: none;
+        padding: 0;
+      }
+
+      .form-input,
+      .form-select {
+        width: 100%;
+        padding: 0.875rem 1rem;
+        background: rgba(255, 255, 255, 0.03);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        color: $white;
+        font-size: 1rem;
+        font-family: 'Poppins', sans-serif;
+        transition: all 0.3s ease;
+
+        &:focus {
+          outline: none;
+          border-color: $orange;
+          background: rgba(255, 107, 53, 0.08);
+          box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15);
+        }
+
+        &::placeholder {
+          color: rgba(255, 255, 255, 0.4);
+        }
+
+        &.error {
+          border-color: #ff6b6b;
+        }
+
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+      }
+
+      .form-select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        padding-right: 3rem;
+        cursor: pointer;
+
+        option {
+          background: #1a1a1a;
+          color: $white;
+        }
+      }
+
+      .error-message {
+        display: block;
+        color: #ff6b6b;
+        font-size: 0.85rem;
+        margin-top: 6px;
+        background: none;
+        padding: 0;
+        border: none;
+
+        &::before {
+          display: none;
+        }
+      }
+    }
+
+    .submit-error {
+      background: rgba(255, 107, 107, 0.1);
+      color: #ff6b6b;
+      padding: 0.875rem 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(255, 107, 107, 0.3);
+      font-size: 0.9rem;
+    }
+
+    .success-message {
+      background: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+      padding: 0.875rem 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 2rem;
+      justify-content: flex-end;
+
+      .btn {
+        padding: 0.875rem 1.75rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: 'Poppins', sans-serif;
+        border: none;
+        white-space: nowrap;
+        min-width: 140px;
+
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+
+        &.btn-secondary {
+          background: rgba(255, 255, 255, 0.05);
+          color: $white;
+          border: 2px solid rgba(255, 255, 255, 0.2);
+
+          &:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+          }
+        }
+
+        &.btn-primary {
+          background: linear-gradient(135deg, $orange 0%, $orange-hover 100%);
+          color: $white;
+          box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+
+          &:hover:not(:disabled) {
+            box-shadow: 0 6px 28px rgba(255, 107, 53, 0.5);
+            transform: translateY(-2px);
+          }
+        }
+      }
+
+      @media (max-width: 640px) {
+        flex-direction: column;
+
+        .btn {
+          width: 100%;
+          min-width: auto;
+        }
+      }
+    }
+  }
+
+  .modal-content {
+    max-width: 500px;
+    width: 90vw;
+  }
+}

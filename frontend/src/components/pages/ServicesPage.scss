@@ -1,0 +1,50 @@
+$black: #0a0a0a;
+$orange: #ff6b35;
+$white: #ffffff;
+$gray: rgba(255, 255, 255, 0.7);
+
+.services-page {
+  background: $black;
+  min-height: 100vh;
+}
+
+.services-page-hero {
+  padding: 140px 20px 60px;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(255, 107, 53, 0.05) 0%, transparent 100%);
+
+  &__container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  &__title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: $white;
+    margin-bottom: 20px;
+    line-height: 1.2;
+
+    .highlight {
+      background: linear-gradient(135deg, $orange 0%, #ff8555 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 2.2rem;
+    }
+  }
+
+  &__subtitle {
+    font-size: 1.2rem;
+    color: $gray;
+    line-height: 1.8;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
+  }
+}
